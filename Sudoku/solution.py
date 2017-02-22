@@ -25,9 +25,9 @@ boxes = cross(rows, cols)
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
-lr_diag_units = []
-rl_diag_units = []
-unitlist = row_units + column_units + square_units
+diagonal_units = [[r + c for r,c in zip(rows,cols)] , [r + c for r,c in zip(rows,cols[::-1])]]
+#diagonal_units = [['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'], ['A9', 'B8', 'C7', 'D6', 'F4', 'G3', 'H2', 'I1']]
+unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
@@ -107,10 +107,49 @@ def only_choice(values):
     return values
 
 def reduce_puzzle(values):
-    pass
+    """
+    Iterate eliminate() and only_choice(). If at some point, there is a box with no available values, return False.
+    If the sudoku is solved, return the sudoku.
+    If after an iteration of both functions, the sudoku remains the same, return the sudoku.
+    Input: A sudoku in dictionary form.
+    Output: The resulting sudoku in dictionary form.
+    """
+    solved_values = [box for box in values.keys() if len(values[box]) == 1]
+    stalled = False
+    while not stalled:
+        solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
+        values = eliminate(values)
+        values = only_choice(values)
+        solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
+        stalled = solved_values_before == solved_values_after
+        if len([box for box in values.keys() if len(values[box]) == 0]):
+            return False
+    return values
 
-def search(values):
-    pass
+
+
+def search(values, counter):
+    "Using depth-first search and propagation, try all possible values."
+    counter+=1
+    print("Called search()", counter)
+    #display(values)
+    # First, reduce the puzzle using the previous function
+    values = reduce_puzzle(values)
+    if values is False:
+        return False ## Failed earlier
+    if all(len(values[s]) == 1 for s in boxes): 
+        return values ## Solved!
+    # Choose one of the unfilled squares with the fewest possibilities
+    n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
+    # Now use recurrence to solve each one of the resulting sudokus, and 
+    for value in values[s]:
+        new_sudoku = values.copy()
+        new_sudoku[s] = value
+        attempt = search(new_sudoku, counter)
+        if attempt:
+            return attempt
+
+
 
 def solve(grid):
     """
@@ -121,11 +160,11 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
-    grid_values_ = grid_values(grid)
-    eliminated_values = eliminate(grid_values_)
-    only_choice_values = only_choice(eliminated_values)
+    values = grid_values(grid)
+    display(values)
+    solved_values = search(values, 0)
 
-    return only_choice_values
+    return solved_values
 
 
 if __name__ == '__main__':

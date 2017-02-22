@@ -1,0 +1,27 @@
+Hi @chogall, you do not want to run the visualize.py script directly. Instead, you will use it from within your solution.py file. You can see a call to visualize_assignments at the bottom of that file.
+
+However, even then you won't automatically see anything unless you do two things:
+
+Have pygame installed properly on your system (hopefully that all worked when you set up your aind Anaconda environment)
+Inside your code, anywhere you would set a value in the values dictionary, you should instead call the assign_value function. For example, if you have a line like
+values[box] = new_value
+You would change that to 
+assign_value(values, box, new_value)
+Hopefully that's all it will take to get your visualizations up and running! :relaxed:
+
+-Chris
+
+
+Hello @Milton-910152 you are correct, you should use the elimination strategy first and then naked twins.
+
+
+
+Hi @djovisic, You need to handle naked twins just like you handled any other constraints in the lectures. When you discover a pair of naked twins, you need to remove their values from any box that can no longer have those values. It's up to you to figure out which boxes those are.
+
+-Chris
+
+
+exec(open("./solution.py").read())
+
+
+[['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'], ['A9', 'B8', 'C7', 'D6', 'F4', 'G3', 'H2', 'I1']]
