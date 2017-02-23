@@ -25,3 +25,138 @@ exec(open("./solution.py").read())
 
 
 [['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'], ['A9', 'B8', 'C7', 'D6', 'F4', 'G3', 'H2', 'I1']]
+
+@@@@@@@@@@@@@@@@@@@@
+    for unit in unitlist:
+        for twin in naked_twins_list:
+            first_twin = twin[0]
+            second_twin = twin[1]
+            twins_value = values[first_twin]
+            #print("Twins Value:", twins_value)
+            if first_twin in unit and second_twin in unit:
+                tplaces = [box for box in unit if twins_value in values[box] and box != first_twin and box != second_twin]
+                if len(tplaces) > 0 : 
+                    print("........UNIT......",  unit)
+                    print("--------TPLACES------", tplaces)
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@                    
+
+
+
+
+
+def naked_twins(values):
+    """Eliminate values using the naked twins strategy.
+    Args:
+        values(dict): a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns:
+        the values dictionary with the naked twins eliminated from peers.
+    """
+
+    # Find all instances of naked twins
+    # Eliminate the naked twins as possibilities for their peers
+    
+    #for unit in unitlist:
+    print("------ Called Naked Twin Function ------")
+    naked_twins_list = []
+    for box in values:
+        for peer in peers[box]:
+            if values[box] == values[peer]:
+                naked_twins_list.append((box,peer))
+                #print("box", box, "peer", peer)
+                #print("Found Naked Twin", values[box], values[peer])
+    
+    #print("NAKED TIWIN:", naked_twins_list)
+
+    for unit in unitlist:
+        for twin in naked_twins_list:
+            first_twin = twin[0]
+            second_twin = twin[1]
+            twins_value = values[first_twin]
+            if first_twin in unit and second_twin in unit:       
+                for box in unit:
+                    if box != first_twin and box != second_twin:
+                        str_value = values[box]
+
+
+
+'''
+                if len(tplaces) > 0 : 
+                    print(">>>>>>>>TWINS>>>>>>>>:", twin)     
+                    print(">>>>>>>>TWIN VALUE>>>>>>>>:", twins_value)     
+                    print("")                       
+                    print("........UNIT......",  unit)
+                    print("")                       
+                    print("--------TPLACES------", tplaces)
+                    print("")                       
+'''
+
+    first_twins = [t[0] for t in naked_twins_list]
+    second_twins = [t[1] for t in naked_twins_list]
+
+    #print(first_twins)
+    #print(second_twins)
+
+
+    return values
+
+
+
+
+>>>>>>>>>>>>>>>>GIST
+
+    solved_values = [box for box in values.keys() if len(values[box]) > 1]
+    for box in solved_values:
+        for unit in unitlist[box]:
+            for peer in set(unit).intersection(set(peers[box])):
+                if not set(values[peer]).difference(set(values[box])):
+                    digit1 = values[box][0]
+                    digit2 = values[box][1]
+                    for item in set(unit).difference(set([box, peer])):
+                            if digit1 in values[item]:
+                                values[item].remove(digit1)
+                            if digit2 in values[item]:
+                                values[item].remove(digit2)
+
+-----------
+
+Without Diagonal
+2 3 9 |8 7 4 |1 5 6
+7 5 4 |3 1 6 |2 9 8
+6 8 1 |9 5 2 |3 7 4
+------+------+------
+4 7 6 |1 2 8 |5 3 9
+3 1 2 |4 9 5 |6 8 7
+5 9 8 |6 3 7 |4 1 2
+------+------+------
+1 4 3 |7 6 9 |8 2 5
+9 6 5 |2 8 3 |7 4 1
+8 2 7 |5 4 1 |9 6 3
+
+With Diagonal
+2 6 7 |9 4 5 |3 8 1
+8 5 3 |7 1 6 |2 4 9
+4 9 1 |8 2 3 |5 7 6
+------+------+-----
+5 7 6 |4 3 8 |1 9 2
+3 8 4 |1 9 2 |6 5 7
+1 2 9 |6 5 7 |4 3 8
+------+------+-----
+6 4 2 |3 7 9 |8 1 5
+9 3 5 |2 8 1 |7 6 4
+7 1 8 |5 6 4 |9 2 3
+
+
+2 6 7 |9 4 5 |3 8 1
+8 5 3 |7 1 6 |2 4 9
+4 9 1 |8 2 3 |5 7 6
+------+------+-----
+5 7 6 |4 3 8 |1 9 2
+3 8 4 |1 9 2 |6 5 7
+1 2 9 |6 5 7 |4 3 8
+------+------+-----
+6 4 2 |3 7 9 |8 1 5
+9 3 5 |2 8 1 |7 6 4
+7 1 8 |5 6 4 |9 2 3

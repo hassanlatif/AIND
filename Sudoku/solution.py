@@ -26,7 +26,6 @@ row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
 diagonal_units = [[r + c for r,c in zip(rows,cols)] , [r + c for r,c in zip(rows,cols[::-1])]]
-#diagonal_units = [['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'], ['A9', 'B8', 'C7', 'D6', 'F4', 'G3', 'H2', 'I1']]
 unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
@@ -43,6 +42,28 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+    solved_values = [box for box in values.keys() if len(values[box]) == 2]
+    for box in solved_values:   
+        for unit in units[box]:
+            for peer in set(unit).intersection(set(peers[box])):
+                if not set(values[peer]).difference(set(values[box])):
+                    twin1 = values[box][0]
+                    twin2 = values[box][1]
+                    for t in set(unit).difference(set([box, peer])):
+                        if twin1 in values[t]:
+                            #print("Step 7: Before: ", values[t])
+                            #print("twin1: ", twin1)
+                            values[t] = values[t].replace(twin1, '')
+                            #print("Step 7: After: ", values[t])
+                        if twin2 in values[t]:
+                            #print("Step 8: Before:", values[t])
+                            #print("twin2: ", twin2)
+                            values[t] = values[t].replace(twin2, '')
+                            #print("Step 7: After:", values[t])
+
+    return values
+
+
 
 
 def grid_values(grid):
@@ -116,10 +137,14 @@ def reduce_puzzle(values):
     """
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
     stalled = False
+    counter = 0
     while not stalled:
+        #print("Loop No.", counter)
+        counter += 1
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
+        values = naked_twins(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
@@ -131,7 +156,7 @@ def reduce_puzzle(values):
 def search(values, counter):
     "Using depth-first search and propagation, try all possible values."
     counter+=1
-    print("Called search()", counter)
+    #print("Called search()", counter)
     #display(values)
     # First, reduce the puzzle using the previous function
     values = reduce_puzzle(values)
@@ -161,7 +186,7 @@ def solve(grid):
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
     values = grid_values(grid)
-    display(values)
+    #display(values)
     solved_values = search(values, 0)
 
     return solved_values
