@@ -21,7 +21,6 @@ def cross(A, B):
     
 boxes = cross(rows, cols)
 
-
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
@@ -42,28 +41,25 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
-    solved_values = [box for box in values.keys() if len(values[box]) == 2]
-    for box in solved_values:   
-        for unit in units[box]:
-            for peer in set(unit).intersection(set(peers[box])):
-                if not set(values[peer]).difference(set(values[box])):
-                    twin1 = values[box][0]
-                    twin2 = values[box][1]
-                    for t in set(unit).difference(set([box, peer])):
-                        if twin1 in values[t]:
-                            #print("Step 7: Before: ", values[t])
-                            #print("twin1: ", twin1)
-                            values[t] = values[t].replace(twin1, '')
-                            #print("Step 7: After: ", values[t])
-                        if twin2 in values[t]:
-                            #print("Step 8: Before:", values[t])
-                            #print("twin2: ", twin2)
-                            values[t] = values[t].replace(twin2, '')
-                            #print("Step 7: After:", values[t])
+    naked_twins_list = []
+    for box in values:
+        for peer in peers[box]:
+            if values[box] == values[peer] and (peer,box) not in naked_twins_list and len(values[box]) == 2:
+                naked_twins_list.append((box,peer))
+
+    for unit in unitlist:
+        for twin in naked_twins_list:
+            if len(set(twin).intersection(set(unit))) == 2:
+                tdigit1 = values[twin[0]][0]
+                tdigit2 = values[twin[1]][1]
+                twin_peers = list(set(unit).difference(set(twin)))
+                for t in twin_peers:
+                    if tdigit1 in values[t] and len(values[t]) > 1:
+                       values[t] = values[t].replace(tdigit1,'')
+                    if tdigit2 in values[t] and len(values[t]) > 1:
+                       values[t] = values[t].replace(tdigit2,'')
 
     return values
-
-
 
 
 def grid_values(grid):
@@ -137,10 +133,7 @@ def reduce_puzzle(values):
     """
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
     stalled = False
-    counter = 0
     while not stalled:
-        #print("Loop No.", counter)
-        counter += 1
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
@@ -153,9 +146,8 @@ def reduce_puzzle(values):
 
 
 
-def search(values, counter):
+def search(values):
     "Using depth-first search and propagation, try all possible values."
-    counter+=1
     #print("Called search()", counter)
     #display(values)
     # First, reduce the puzzle using the previous function
@@ -186,9 +178,7 @@ def solve(grid):
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
     values = grid_values(grid)
-    #display(values)
-    solved_values = search(values, 0)
-
+    solved_values = search(values)
     return solved_values
 
 
