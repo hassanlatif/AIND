@@ -3,11 +3,14 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: We first identify the naked twins in each unit and then remove the digits of the naked twins from their peers in that unit. The naked twin strategy is then applied in conjunction with the eliminate and only_choice strategy. The constraint propagation is used by combined application of these three strategies unitl a solution is found.
+A: We identify the naked twins in each unit and then remove the digits of the naked twins from their peers in that unit. The naked twin strategy is applied in conjunction with the eliminate and only choice strategy. The constraint propagation is used by combined application of these three reduction strategies unitl a solution is found or no further reductions can be made. The steps taken to solve the naked twin problem in the code is as follows:
+1. For each box on the board identify twin peer of the box which has the same two digit value while discarding duplicate twins
+2. Go through each unit and check if any of the above identified naked twins are in the unit. 
+3. In case the unit has the naked twins, make sure that the twin digits are discarded from all other boxes in the unit.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: We add an additional diagonal unit to the unitslist which becomes part of the elimination strategy. 
+A: We add a diagonal unit to the sudoku units which becomes an additional contraint of the elimination strategy. The elimination strategy is used as part of the constraint propagation chain in addition to the naked twins and only choice strategy. The diagonal unit is created in the code by 'zipping' through row and column headers in the forward and backward directions.
 
 ### Install
 

@@ -40,19 +40,22 @@ def naked_twins(values):
     """
 
     # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
     naked_twins_list = []
     for box in values:
         for peer in peers[box]:
+            # If a peer has been found with equal two digit value and not already added then add to the naked twin list
             if values[box] == values[peer] and (peer,box) not in naked_twins_list and len(values[box]) == 2:
                 naked_twins_list.append((box,peer))
 
+    # Eliminate the naked twins as possibilities for their peers
     for unit in unitlist:
         for twin in naked_twins_list:
+            # Check if the twin is in the unit
             if len(set(twin).intersection(set(unit))) == 2:
                 tdigit1 = values[twin[0]][0]
                 tdigit2 = values[twin[1]][1]
                 twin_peers = list(set(unit).difference(set(twin)))
+                # Discard twin digit values from their peers in the unit
                 for t in twin_peers:
                     if tdigit1 in values[t] and len(values[t]) > 1:
                        #values[t] = values[t].replace(tdigit1,'')
