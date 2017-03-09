@@ -7,7 +7,7 @@ You must test your agent's strength against a set of agents with known
 relative strength using tournament.py and include the results in your report.
 """
 import random
-
+from random import randint
 
 class Timeout(Exception):
     """Subclass base exception for code clarity."""
@@ -37,8 +37,17 @@ def custom_score(game, player):
         The heuristic value of the current game state to the specified player.
     """
 
-    # TODO: finish this function!
-    raise NotImplementedError
+    # TODO: finish this function! #Right now using sample player implementation
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return float(own_moves - opp_moves)
+
 
 
 class CustomPlayer:
@@ -129,14 +138,19 @@ class CustomPlayer:
             # here in order to avoid timeout. The try/except block will
             # automatically catch the exception raised by the search method
             # when the timer gets close to expiring
-            pass
+
+            depth=2
+            if not legal_moves:
+                return (-1, -1)
+            # _, move = max([(self.score(game.forecast_move(m), self), m) for m in legal_moves]
+            move = self.minimax(game, depth)
 
         except Timeout:
-            # Handle any actions required at timeout, if necessary
-            pass
+            print ("Timeout!")
 
         # Return the best move from the last completed search iteration
-        raise NotImplementedError
+        return move
+        #raise NotImplementedError
 
     def minimax(self, game, depth, maximizing_player=True):
         """Implement the minimax search algorithm as described in the lectures.
@@ -173,7 +187,17 @@ class CustomPlayer:
             raise Timeout()
 
         # TODO: finish this function!
-        raise NotImplementedError
+        def max_value(minimax_depth):
+
+            if minimax_depth > depth   #or len(game.get_legal_moves(self)) == 0
+               return self.score(game.get)
+
+
+
+
+
+
+
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf"), maximizing_player=True):
         """Implement minimax search with alpha-beta pruning as described in the

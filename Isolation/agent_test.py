@@ -244,7 +244,7 @@ class Project1Test(unittest.TestCase):
             "The heuristic function should return a floating point")
 
     timeout(5)
-    # @unittest.skip("Skip simple minimax test.")  # Uncomment this line to skip test
+    @unittest.skip("Skip simple minimax test.")  # Uncomment this line to skip test
     def test_minimax_interface(self):
         """ Test CustomPlayer.minimax interface with simple input """
         h, w = 7, 7  # board size
@@ -325,6 +325,7 @@ class Project1Test(unittest.TestCase):
         board = isolation.Board(agentUT, 'null_agent', w, h)
         legal_moves = board.get_legal_moves()
         move = agentUT.get_move(board, legal_moves, lambda: 99)
+        print('Test1')
         self.assertIn(move, legal_moves,
                       ("The get_move() function failed as player 1 on an " +
                        "empty board. It should return coordinates on the " +
@@ -337,6 +338,7 @@ class Project1Test(unittest.TestCase):
         board.apply_move(starting_location)
         legal_moves = board.get_legal_moves()
         move = agentUT.get_move(board, legal_moves, lambda: 99)
+        print('Test2')
         self.assertIn(move, legal_moves,
                       ("The get_move() function failed making the first " +
                        "move as player 2 on a new board. It should return " +
@@ -350,6 +352,7 @@ class Project1Test(unittest.TestCase):
         board.apply_move(adversary_location)
         legal_moves = board.get_legal_moves()
         move = agentUT.get_move(board, legal_moves, lambda: 99)
+        print('Test3')
         self.assertIn(move, legal_moves,
                       ("The get_move() function failed as player 1 on a " +
                        "game in progress. It should return coordinates on" +

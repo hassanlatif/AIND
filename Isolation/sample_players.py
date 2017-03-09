@@ -229,15 +229,15 @@ if __name__ == "__main__":
     from isolation import Board
 
     # create an isolation board (by default 7x7)
-    player1 = RandomPlayer()
-    player2 = HumanPlayer()
+    player2 = GreedyPlayer(open_move_score) # RandomPlayer()
+    player1 = RandomPlayer() #open_move_score #improved_score
     game = Board(player1, player2)
 
     # place player 1 on the board at row 2, column 3, then place player 2 on
     # the board at row 0, column 5; display the resulting board state.  Note
     # that .apply_move() changes the calling object
-    game.apply_move((2, 3))
-    game.apply_move((0, 5))
+    game.apply_move((0, 0))
+    game.apply_move((0, 6))
     print(game.to_string())
 
     # players take turns moving on the board, so player1 should be next to move
