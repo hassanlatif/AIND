@@ -44,9 +44,7 @@ def custom_score(game, player):
     if game.is_winner(player):
         return float("inf")
 
-    own_moves = len(game.get_legal_moves(player))
-    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    return float(own_moves - opp_moves)
+    return float(len(game.get_legal_moves(player)))
 
 
 
@@ -139,7 +137,7 @@ class CustomPlayer:
             # automatically catch the exception raised by the search method
             # when the timer gets close to expiring
 
-            depth=2
+            #depth=1
             if not legal_moves:
                 return (-1, -1)
             # _, move = max([(self.score(game.forecast_move(m), self), m) for m in legal_moves]
@@ -187,16 +185,40 @@ class CustomPlayer:
             raise Timeout()
 
         # TODO: finish this function!
-        def max_value(minimax_depth):
+        def max_value(game, minimax_depth):
+            if minimax_depth >= depth:  
+               max_score = self.score(game, self)
+               print("minimax_depth",minimax_depth, "max_score", max_score)
+               return max_score
+            v = float("-inf")
+            for m in game.get_legal_moves(self):
+                print 
+                v = max(v, min_value(game.forecast_move(m), minimax_depth+1))
+            return v
 
-            if minimax_depth > depth   #or len(game.get_legal_moves(self)) == 0
-               return self.score(game.get)
+        def min_value(game, minimax_depth):
+            if minimax_depth >= depth:   
+               min_score = self.score(game, self)
+               print("minimax_depth", minimax_depth, "min_score", min_score)
+               return min_score
+            v = float("inf")
+            for m in game.get_legal_moves(self):
+                v = min(v, max_value(game.forecast_move(m), minimax_depth+1))
+            return v
 
+        best_score = float("-inf")
+        best_move = None
+        print("Depth 1 legal moves", game.get_legal_moves(self))
+        for m in game.get_legal_moves(self):
+            print("Depth", 1, "Move", m)
+            v = min_value(game.forecast_move(m), 1)
+            if v > best_score:
+               best_score = v
+               best_move = m
 
-
-
-
-
+        print("best_score", best_score, "best_move", best_move)
+        return best_score, best_move
+    
 
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf"), maximizing_player=True):
