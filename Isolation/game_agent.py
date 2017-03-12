@@ -184,41 +184,52 @@ class CustomPlayer:
         if self.time_left() < self.TIMER_THRESHOLD:
             raise Timeout()
 
-        # TODO: finish this function!
         def max_value(game, minimax_depth):
-            if minimax_depth >= depth:  
+
+            if self.time_left() < self.TIMER_THRESHOLD:
+               raise Timeout()
+
+            print("max_depth",minimax_depth)
+            if minimax_depth <= 1:  
                max_score = self.score(game, self)
-               print("minimax_depth",minimax_depth, "max_score", max_score)
+               print("max_score", max_score)
                return max_score
             v = float("-inf")
-            for m in game.get_legal_moves(self):
-                print 
-                v = max(v, min_value(game.forecast_move(m), minimax_depth+1))
+            print("max legal moves", game.get_legal_moves())            
+            for m in game.get_legal_moves():
+                print("max move", m)
+                v = max(v, min_value(game.forecast_move(m), minimax_depth-1))
             return v
 
         def min_value(game, minimax_depth):
-            if minimax_depth >= depth:   
+
+            if self.time_left() < self.TIMER_THRESHOLD:
+               raise Timeout()
+
+            print("min_depth", minimax_depth)           
+            if minimax_depth <= 1:   
                min_score = self.score(game, self)
-               print("minimax_depth", minimax_depth, "min_score", min_score)
+               print("min_score", min_score)
                return min_score
             v = float("inf")
-            for m in game.get_legal_moves(self):
-                v = min(v, max_value(game.forecast_move(m), minimax_depth+1))
+            print("min legal moves", game.get_legal_moves())
+            for m in game.get_legal_moves():
+                print("min move", m)
+                v = min(v, max_value(game.forecast_move(m), minimax_depth-1))
             return v
 
         best_score = float("-inf")
         best_move = None
-        print("Depth 1 legal moves", game.get_legal_moves(self))
-        for m in game.get_legal_moves(self):
-            print("Depth", 1, "Move", m)
-            v = min_value(game.forecast_move(m), 1)
+        print("Depth legal moves", game.get_legal_moves())
+        for m in game.get_legal_moves():
+            print("Depth", depth, "Move", m)
+            v = min_value(game.forecast_move(m), depth)
             if v > best_score:
                best_score = v
                best_move = m
 
-        print("best_score", best_score, "best_move", best_move)
+        print("\nbest_score", best_score, "best_move", best_move)
         return best_score, best_move
-    
 
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf"), maximizing_player=True):
