@@ -9,6 +9,8 @@ relative strength using tournament.py and include the results in your report.
 import random
 from random import randint
 
+import sys
+
 class Timeout(Exception):
     """Subclass base exception for code clarity."""
     pass
@@ -137,14 +139,29 @@ class CustomPlayer:
             # automatically catch the exception raised by the search method
             # when the timer gets close to expiring
 
-            #depth=1
             if not legal_moves:
                 return (-1, -1)
-            # _, move = max([(self.score(game.forecast_move(m), self), m) for m in legal_moves]
-            move = self.minimax(game, depth)
 
-        except Timeout:
-            print ("Timeout!")
+            if self.method == 'minimax':
+                if self.iterative == True:
+                   for depth in range(1,sys.maxsize):
+                       _ , move = self.minimax(game, depth)                   
+                else:
+                       depth = self.search_depth
+                       _ , move = self.minimax(game, depth) 
+
+
+            if self.method == 'alphabeta':
+                if self.iterative == True:
+                   for depth in range(1,sys.maxsize):
+                       _ , move = self.alphabeta(game, depth)                   
+                else:
+                       depth = self.search_depth
+                       _ , move = self.alphabeta(game, depth) 
+
+        except Timeout: 
+            pass
+            #print ("Timeout!", move)
 
         # Return the best move from the last completed search iteration
         return move
@@ -189,16 +206,16 @@ class CustomPlayer:
             if self.time_left() < self.TIMER_THRESHOLD:
                raise Timeout()
 
-            print("max_depth",minimax_depth)
-            if minimax_depth <= 1:  
+            #print("max_depth",minimax_depth)
+            if minimax_depth >= depth:  
                max_score = self.score(game, self)
-               print("max_score", max_score)
+               #print("max_score", max_score)
                return max_score
             v = float("-inf")
-            print("max legal moves", game.get_legal_moves())            
+            #print("max legal moves", game.get_legal_moves())            
             for m in game.get_legal_moves():
-                print("max move", m)
-                v = max(v, min_value(game.forecast_move(m), minimax_depth-1))
+                #print("max move", m)
+                v = max(v, min_value(game.forecast_move(m), minimax_depth+1))
             return v
 
         def min_value(game, minimax_depth):
@@ -206,29 +223,29 @@ class CustomPlayer:
             if self.time_left() < self.TIMER_THRESHOLD:
                raise Timeout()
 
-            print("min_depth", minimax_depth)           
-            if minimax_depth <= 1:   
+            #print("min_depth", minimax_depth)           
+            if minimax_depth >= depth:   
                min_score = self.score(game, self)
-               print("min_score", min_score)
+               #print("min_score", min_score)
                return min_score
             v = float("inf")
-            print("min legal moves", game.get_legal_moves())
+            #print("min legal moves", game.get_legal_moves())
             for m in game.get_legal_moves():
-                print("min move", m)
-                v = min(v, max_value(game.forecast_move(m), minimax_depth-1))
+                #print("min move", m)
+                v = min(v, max_value(game.forecast_move(m), minimax_depth+1))
             return v
 
         best_score = float("-inf")
         best_move = None
-        print("Depth legal moves", game.get_legal_moves())
+        #print("Depth legal moves", game.get_legal_moves())
         for m in game.get_legal_moves():
-            print("Depth", depth, "Move", m)
-            v = min_value(game.forecast_move(m), depth)
+            #print("Depth", depth, "Move", m)
+            v = min_value(game.forecast_move(m), 1)
             if v > best_score:
                best_score = v
                best_move = m
 
-        print("\nbest_score", best_score, "best_move", best_move)
+        #print("\nbest_score", best_score, "best_move", best_move)
         return best_score, best_move
 
 
@@ -273,5 +290,60 @@ class CustomPlayer:
         if self.time_left() < self.TIMER_THRESHOLD:
             raise Timeout()
 
-        # TODO: finish this function!
-        raise NotImplementedError
+        #print("\n Alpha-Beta \n")
+
+        def max_value(game, minimax_depth, a, b):
+
+            if self.time_left() < self.TIMER_THRESHOLD:
+               raise Timeout()
+
+            #print("max_depth",minimax_depth)
+            if minimax_depth >= depth:  
+               max_score = self.score(game, self)
+               #print("max_score", max_score)
+               return max_score
+            v = float("-inf")
+            #print("max legal moves", game.get_legal_moves())            
+            for m in game.get_legal_moves():
+                #print("max move", m)
+                v = max(v, min_value(game.forecast_move(m), minimax_depth+1, a, b))
+                if v >= b:
+                    return v
+                a = max(a,v)
+            return v
+
+        def min_value(game, minimax_depth, a, b):
+
+            if self.time_left() < self.TIMER_THRESHOLD:
+               raise Timeout()
+
+            #print("min_depth", minimax_depth)           
+            if minimax_depth >= depth:   
+               min_score = self.score(game, self)
+               #print("min_score", min_score)
+               return min_score
+            v = float("inf")
+            #print("min legal moves", game.get_legal_moves())
+            for m in game.get_legal_moves():
+                #print("min move", m)
+                v = min(v, max_value(game.forecast_move(m), minimax_depth+1, a, b))
+                if v <= a:
+                    return v
+                b = min(b,v)
+            return v
+
+        best_score = float("-inf")
+        best_move = None
+        #print("Depth legal moves", game.get_legal_moves())
+        for m in game.get_legal_moves():
+            #print("Depth", depth, "Move", m)
+            v = min_value(game.forecast_move(m), 1, best_score, beta)
+            #print("v > best_score", v, ">", best_score)
+            if v > best_score:
+               best_score = v
+               best_move = m
+
+        #print("\nbest_score", best_score, "best_move", best_move,"\n")
+        return best_score, best_move
+
+        #raise NotImplementedError

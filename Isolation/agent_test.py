@@ -228,7 +228,7 @@ class Project1Test(unittest.TestCase):
         return agentUT, board
 
     @timeout(5)
-    @unittest.skip("Skip eval function test.")  # Uncomment this line to skip test
+    #@unittest.skip("Skip eval function test.")  # Uncomment this line to skip test
     def test_heuristic(self):
         """ Test output interface of heuristic score function interface."""
 
@@ -275,7 +275,7 @@ class Project1Test(unittest.TestCase):
                              "branch being searched."))
 
     timeout(5)
-    @unittest.skip("Skip alphabeta test.")  # Uncomment this line to skip test
+    #@unittest.skip("Skip alphabeta test.")  # Uncomment this line to skip test
     def test_alphabeta_interface(self):
         """ Test CustomPlayer.alphabeta interface with simple input """
         h, w = 9, 9  # board size
@@ -306,7 +306,7 @@ class Project1Test(unittest.TestCase):
                              "branch being searched."))
 
     @timeout(5)
-    @unittest.skip("Skip get_move test.")  # Uncomment this line to skip test
+    #@unittest.skip("Skip get_move test.")  # Uncomment this line to skip test
     def test_get_move_interface(self):
         """ Test CustomPlayer.get_move interface with simple input """
         h, w = 9, 9  # board size
@@ -325,7 +325,7 @@ class Project1Test(unittest.TestCase):
         board = isolation.Board(agentUT, 'null_agent', w, h)
         legal_moves = board.get_legal_moves()
         move = agentUT.get_move(board, legal_moves, lambda: 99)
-        print('Test1')
+        #print('Test1')
         self.assertIn(move, legal_moves,
                       ("The get_move() function failed as player 1 on an " +
                        "empty board. It should return coordinates on the " +
@@ -338,7 +338,7 @@ class Project1Test(unittest.TestCase):
         board.apply_move(starting_location)
         legal_moves = board.get_legal_moves()
         move = agentUT.get_move(board, legal_moves, lambda: 99)
-        print('Test2')
+        #print('Test2')
         self.assertIn(move, legal_moves,
                       ("The get_move() function failed making the first " +
                        "move as player 2 on a new board. It should return " +
@@ -352,7 +352,7 @@ class Project1Test(unittest.TestCase):
         board.apply_move(adversary_location)
         legal_moves = board.get_legal_moves()
         move = agentUT.get_move(board, legal_moves, lambda: 99)
-        print('Test3')
+        #print('Test3')
         self.assertIn(move, legal_moves,
                       ("The get_move() function failed as player 1 on a " +
                        "game in progress. It should return coordinates on" +
@@ -402,9 +402,9 @@ class Project1Test(unittest.TestCase):
         # player (student agent) has the last move, while even depths mean that
         # the adversary has the last move before calling the heuristic
         # evaluation function.
-        for idx in range(2):
+        for idx in range(5):
             test_depth = idx + 1
-            print("test_depth", idx)
+            #print("test_depth", idx)
             agentUT, board = self.initAUT(test_depth, heuristic,
                                           iterative_search, method,
                                           loc1=starting_location,
@@ -426,7 +426,7 @@ class Project1Test(unittest.TestCase):
                 method, test_depth, expected_moves[idx // 2], move))
 
     @timeout(20)
-    @unittest.skip("Skip alpha-beta test.")  # Uncomment this line to skip test
+    #@unittest.skip("Skip alpha-beta test.")  # Uncomment this line to skip test
     def test_alphabeta(self):
         """ Test CustomPlayer.alphabeta
 
@@ -452,9 +452,11 @@ class Project1Test(unittest.TestCase):
         # used for this test ensures that some branches must be pruned, while
         # the search should still return an optimal move.
         counts = [(8, 8), (17, 10), (74, 42), (139, 51), (540, 119)]
+        
 
-        for idx in range(len(counts)):
+        for idx in range(len(counts)): #len(counts)
             test_depth = idx + 1  # pruning guarantee requires min depth of 3
+            #print("\n Alpha-Beta \n", "depth", test_depth)
             first_branch = []
             heuristic = makeBranchEval(first_branch)
             agentUT, board = self.initAUT(test_depth, heuristic,
@@ -481,7 +483,7 @@ class Project1Test(unittest.TestCase):
 
 
     @timeout(20)
-    @unittest.skip("Skip iterative deepening test.")  # Uncomment this line to skip test
+    #@unittest.skip("Skip iterative deepening test.")  # Uncomment this line to skip test
     def test_get_move(self):
         """ Test iterative deepening in CustomPlayer.get_move by placing an
         agent on the game board and performing ID minimax search, which
