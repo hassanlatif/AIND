@@ -351,4 +351,4 @@ class Board(object):
 
             self.apply_move(curr_move)
 
-            print(self.to_string())  # Added to print board after each move is applied.
+            #print(self.to_string())  # Added to print board after each move is applied.

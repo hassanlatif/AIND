@@ -10,10 +10,15 @@ import random
 from random import randint
 
 import sys
+import math
 
 class Timeout(Exception):
     """Subclass base exception for code clarity."""
     pass
+
+
+def distance(p0, p1):
+    return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
 
 
 def custom_score(game, player):
@@ -46,8 +51,28 @@ def custom_score(game, player):
     if game.is_winner(player):
         return float("inf")
 
-    return float(len(game.get_legal_moves(player)))
+    #Nearest distance
+    opp_loc = game.get_player_location(game.get_opponent(player))
+    own_loc = game.get_player_location(player)
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return distance(own_loc, opp_loc) * float(own_moves - opp_moves)
 
+
+'''     
+    #Farthest distance
+    opp_loc = game.get_player_location(game.get_opponent(player))
+    own_loc = game.get_player_location(player)
+    return distance(own_loc, opp_loc)
+
+    #Aggressive player
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = 2*len(game.get_legal_moves(game.get_opponent(player)))
+    return float(own_moves - opp_moves)
+
+    #Improved player
+    #return float(len(game.get_legal_moves(player)))
+'''
 
 
 class CustomPlayer:
@@ -132,6 +157,10 @@ class CustomPlayer:
         # Perform any required initializations, including selecting an initial
         # move from the game board (i.e., an opening book), or returning
         # immediately if there are no legal moves
+        move = (3,3)
+
+        if not legal_moves:
+            return (-1, -1)
 
         try:
             # The search method call (alpha beta or minimax) should happen in
@@ -139,8 +168,7 @@ class CustomPlayer:
             # automatically catch the exception raised by the search method
             # when the timer gets close to expiring
 
-            if not legal_moves:
-                return (-1, -1)
+
 
             if self.method == 'minimax':
                 if self.iterative == True:
