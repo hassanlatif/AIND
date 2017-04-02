@@ -18,7 +18,96 @@ class Timeout(Exception):
 
 
 def distance(p0, p1):
+    """
+    Returns the distance between two points on the Isolation board. Used to
+    calculate the distance between two players in the heuristic functions.
+
+    Parameters
+    ----------
+    p0 : (int, int)
+         A tuple giving the current location of the active player on the Isolation board.
+
+    p1 : (int, int)
+         A tuple giving the current location of the opponent player on the Isolation board.
+
+    Returns
+    -------
+    float
+        The distance between the two players on the Isolation board
+    """
     return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
+
+def aggressive_score(game, player):
+    """Calculates and returns the distance between the two players in the 
+    negative direction to yield higher score when players are closer.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : object
+        A player instance in the current game (i.e., an object corresponding to
+        one of the player objects `game.__player_1__` or `game.__player_2__`.)
+
+    Returns
+    -------
+    float
+        The heuristic value of the current game state
+    """
+    opp_loc = game.get_player_location(game.get_opponent(player))
+    own_loc = game.get_player_location(player)
+    return -1*distance(own_loc, opp_loc)
+
+def conservative_score(game, player):
+    """Calculates and returns the distance between the two players 
+     to yield higher score when players are farther.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : object
+        A player instance in the current game (i.e., an object corresponding to
+        one of the player objects `game.__player_1__` or `game.__player_2__`.)
+
+    Returns
+    -------
+    float
+        The heuristic value of the current game state
+    """
+    opp_loc = game.get_player_location(game.get_opponent(player))
+    own_loc = game.get_player_location(player)
+    return distance(own_loc, opp_loc) 
+    
+def improved_conservative_score(game, player):
+    """Calculates and returns score equal to the difference in the number 
+    of moves available to the two players weighted by the distance between
+    the two players.
+    
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+    
+    player : object
+        A player instance in the current game (i.e., an object corresponding to
+        one of the player objects `game.__player_1__` or `game.__player_2__`.)
+    
+    Returns
+    -------
+    float
+        The heuristic value of the current game state
+    """
+    opp_loc = game.get_player_location(game.get_opponent(player))
+    own_loc = game.get_player_location(player)
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return distance(own_loc, opp_loc) * float(own_moves - opp_moves)
 
 
 def custom_score(game, player):
@@ -44,35 +133,15 @@ def custom_score(game, player):
         The heuristic value of the current game state to the specified player.
     """
 
-    # TODO: finish this function! #Right now using sample player implementation
     if game.is_loser(player):
         return float("-inf")
 
     if game.is_winner(player):
         return float("inf")
 
-    #Nearest distance
-    opp_loc = game.get_player_location(game.get_opponent(player))
-    own_loc = game.get_player_location(player)
-    own_moves = len(game.get_legal_moves(player))
-    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    return distance(own_loc, opp_loc) * float(own_moves - opp_moves)
+    #Calling Improved Conservative Player and returning the score value
+    return improved_conservative_score(game, player)
 
-
-'''     
-    #Farthest distance
-    opp_loc = game.get_player_location(game.get_opponent(player))
-    own_loc = game.get_player_location(player)
-    return distance(own_loc, opp_loc)
-
-    #Aggressive player
-    own_moves = len(game.get_legal_moves(player))
-    opp_moves = 2*len(game.get_legal_moves(game.get_opponent(player)))
-    return float(own_moves - opp_moves)
-
-    #Improved player
-    #return float(len(game.get_legal_moves(player)))
-'''
 
 
 class CustomPlayer:
@@ -157,7 +226,9 @@ class CustomPlayer:
         # Perform any required initializations, including selecting an initial
         # move from the game board (i.e., an opening book), or returning
         # immediately if there are no legal moves
-        move = (3,3)
+        
+        #Opening move start from center
+        move = (3,3) 
 
         if not legal_moves:
             return (-1, -1)
@@ -168,28 +239,15 @@ class CustomPlayer:
             # automatically catch the exception raised by the search method
             # when the timer gets close to expiring
 
-
-
-            if self.method == 'minimax':
-                if self.iterative == True:
-                   for depth in range(1,sys.maxsize):
-                       _ , move = self.minimax(game, depth)                   
-                else:
-                       depth = self.search_depth
-                       _ , move = self.minimax(game, depth) 
-
-
-            if self.method == 'alphabeta':
-                if self.iterative == True:
-                   for depth in range(1,sys.maxsize):
-                       _ , move = self.alphabeta(game, depth)                   
-                else:
-                       depth = self.search_depth
-                       _ , move = self.alphabeta(game, depth) 
+            if self.iterative == True:
+                for depth in range(1,sys.maxsize):
+                    _ , move = getattr(self, self.method)(game, depth)                   
+            else:
+                depth = self.search_depth
+                _ , move = getattr(self, self.method)(game, depth)
 
         except Timeout: 
             pass
-            #print ("Timeout!", move)
 
         # Return the best move from the last completed search iteration
         return move
