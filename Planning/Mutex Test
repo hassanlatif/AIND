@@ -1,0 +1,1177 @@
+
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------***---------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** At(here)
+1 parents
+0 children
+0 mutex
+
+*** At(there)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** At(here)
+1 parents
+0 children
+0 mutex
+
+*** At(there)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Go(here,)
+1 parents
+1 children
+1 mutex
+
+*** Go(there,)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+F-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+
+*** Noop_pos(Have(Cake),)
+1 parents
+1 children
+1 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+1 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+2 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_pos(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** ~Have(Cake)
+1 parents
+0 children
+0 mutex
+------Start------
+
+*** Noop_neg(Eaten(Cake),)
+1 parents
+1 children
+2 mutex
+
+*** Eat(Cake,)
+1 parents
+2 children
+4 mutex
+------End------
+############################################
+-------------------------------------------
+
+*** ~Eaten(Cake)
+1 parents
+0 children
+1 mutex
+
+*** Have(Cake)
+1 parents
+0 children
+0 mutex
+############################################
+.
