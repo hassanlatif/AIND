@@ -115,13 +115,13 @@ class TestPlanningGraphMutex(unittest.TestCase):
             "If one parent action can achieve both states, should NOT be inconsistent-support mutex, even if parent actions are themselves mutex")
 
 
-# class TestPlanningGraphHeuristics(unittest.TestCase):
-#     def setUp(self):
-#         self.p = have_cake()
-#         self.pg = PlanningGraph(self.p, self.p.initial)
+class TestPlanningGraphHeuristics(unittest.TestCase):
+    def setUp(self):
+        self.p = have_cake()
+        self.pg = PlanningGraph(self.p, self.p.initial)
 
-#     def test_levelsum(self):
-#         self.assertEqual(self.pg.h_levelsum(), 1)
+    def test_levelsum(self):
+        self.assertEqual(self.pg.h_levelsum(), 1)
 
 
 if __name__ == '__main__':

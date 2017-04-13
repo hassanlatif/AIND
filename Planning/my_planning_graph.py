@@ -523,26 +523,12 @@ class PlanningGraph():
         '''
         # TODO test for Inconsistent Support between nodes
 
-        print("-------------------------------------------")
-        node_s1.show()
-        node_s2.show()
-
         for pre_a_node_s1 in node_s1.parents:
             for pre_a_node_s2 in node_s2.parents:
-                if pre_a_node_s1.is_mutex(pre_a_node_s2) \
-                     and (node_s1 and node_s2 not in pre_a_node_s2.children) \
-                     and (node_s1 and node_s2 not in pre_a_node_s1.children):
-                         print("------Start------")
-                         pre_a_node_s1.show()
-                         pre_a_node_s2.show()
-                         print("------End------")
-                         return True
+                if not (pre_a_node_s1.is_mutex(pre_a_node_s2) or pre_a_node_s2.is_mutex(pre_a_node_s1)):
+                    return False
 
-
-        print("############################################")
-
-
-        return False
+        return True
 
     def h_levelsum(self) -> int:
         '''The sum of the level costs of the individual goals (admissible if goals independent)
@@ -552,4 +538,16 @@ class PlanningGraph():
         level_sum = 0
         # TODO implement
         # for each goal in the problem, determine the level cost, then add them together
+        level = 0
+
+        goal_list = list(self.problem.goal)
+
+        while (len(goal_list)>0):
+            for state in self.s_levels[level]:
+                for goal in goal_list:
+                    if goal == state.literal:
+                        goal_list.remove(goal)
+                        level_sum = level_sum + level
+            level = level+1
+
         return level_sum
