@@ -417,7 +417,6 @@ class PlanningGraph():
         :param node_a2: PgNode_a
         :return: bool
         '''
-        # TODO test for Inconsistent Effects between nodes
 
         if len(set(node_a1.action.effect_add).intersection(node_a2.action.effect_rem)) > 0:
             return True
@@ -441,7 +440,6 @@ class PlanningGraph():
         :param node_a2: PgNode_a
         :return: bool
         '''
-        # TODO test for Interference between nodes
 
         if len(set(node_a1.action.effect_add).intersection(node_a2.action.precond_neg)) > 0:
             return True
@@ -468,7 +466,6 @@ class PlanningGraph():
         :return: bool
         '''
 
-        # TODO test for Competing Needs between nodes
         for prenode_a1 in node_a1.parents:
             for prenode_a2 in node_a2.parents:
                 if prenode_a1.is_mutex(prenode_a2):
@@ -508,7 +505,6 @@ class PlanningGraph():
         :param node_s2: PgNode_s
         :return: bool
         '''
-        # TODO test for negation between nodes
         if (node_s1.symbol == node_s2.symbol) and (node_s1.is_pos != node_s2.is_pos):
             return True
 
@@ -530,8 +526,6 @@ class PlanningGraph():
         :param node_s2: PgNode_s
         :return: bool
         '''
-        # TODO test for Inconsistent Support between nodes
-
         for pre_a_node_s1 in node_s1.parents:
             for pre_a_node_s2 in node_s2.parents:
                 if not (pre_a_node_s1.is_mutex(pre_a_node_s2) or pre_a_node_s2.is_mutex(pre_a_node_s1)):
