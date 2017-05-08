@@ -76,8 +76,31 @@ class SelectorBIC(ModelSelector):
         """
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-        # TODO implement model selection based on BIC scores
-        raise NotImplementedError
+        best_score = float("inf")
+        best_model = None
+
+        for n in range(self.min_n_components, self.max_n_components+1):
+            try:
+
+                model = self.base_model(n)
+                logL = model.score(self.X, self.lengths)
+
+            except:
+                pass
+
+            numFeatures = model.n_features
+            initParams = n
+            tranisitionParams = n*(n-1)
+            emissionParams = n*numFeatures*2
+            
+            p = initParams +  tranisitionParams + emissionParams
+
+            bic_score = (-2 * logL + p * math.log(n))
+            if bic_score < best_score:
+                best_score = bic_score
+                best_model = model
+
+        return best_model
 
 
 class SelectorDIC(ModelSelector):
