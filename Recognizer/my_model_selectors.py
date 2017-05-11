@@ -69,24 +69,21 @@ class SelectorBIC(ModelSelector):
     """
 
     def select(self):
-        """ select the best model for self.this_word based on
-        BIC score for n between self.min_n_components and self.max_n_components
 
-        :return: GaussianHMM object
-        """
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
         best_score = float("inf")
         best_model = None
 
-        for n in range(self.min_n_components, self.max_n_components+1):
+        for n in range(self.min_n_components, self.max_n_components + 1):
             try:
 
                 model = self.base_model(n)
                 logL = model.score(self.X, self.lengths)
 
-            except:
+            except Exception as e:
                 pass
+                # print(e)
 
             numFeatures = model.n_features
             initParams = n
@@ -113,11 +110,37 @@ class SelectorDIC(ModelSelector):
     '''
 
     def select(self):
+
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-        # TODO implement model selection based on DIC scores
-        raise NotImplementedError
+        best_score = float("-inf")
+        best_model = None
 
+        other_words = [word for word in self.words if word != self.this_word]
+
+        for n in range(self.min_n_components, self.max_n_components + 1):
+            try:
+                model = self.base_model(n)
+                this_word_logL = model.score(self.X, self.lengths)
+
+                sum_other_words_logL = 0.0
+
+                for word in other_words:
+                    X, lengths = self.hwords[word]
+                    word_logL = model.score(X, lengths)
+                    sum_other_words_logL = sum_other_words_logL + word_logL
+
+            except Exception as e:
+                    pass
+                    # print(e)
+
+            dic_score =  this_word_logL - (1/(len(other_words))*sum_other_words_logL)
+
+            if dic_score > best_score:
+                best_score = dic_score
+                best_model = model
+
+        return best_model
 
 class SelectorCV(ModelSelector):
     ''' select best model based on average log Likelihood of cross-validation folds
@@ -127,5 +150,37 @@ class SelectorCV(ModelSelector):
     def select(self):
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-        # TODO implement model selection using CV
-        raise NotImplementedError
+        best_score = float("-inf")
+        best_model = None
+
+        for n in range(self.min_n_components, self.max_n_components + 1):
+            try:
+
+                model = None
+                logL = []
+
+                split_method = KFold(n_splits=min(len(self.sequences),3))
+
+                for cv_train_idx, cv_test_idx in split_method.split(self.sequences):
+                    
+                    X_train, lengths_train = (combine_sequences(cv_train_idx, self.sequences))
+                    X_test, lengths_test = (combine_sequences(cv_test_idx, self.sequences))
+
+                    model = GaussianHMM(n_components=n, covariance_type="diag", n_iter=1000,
+                                    random_state=self.random_state, verbose=False).fit(X_train, lengths_train)
+
+                    model_score = model.score(X_test,lengths_test)
+
+                    logL.append(model_score)
+
+                cv_score = sum(logL) / float(len(logL))
+
+                if cv_score > best_score:
+                    best_score = cv_score
+                    best_model = model
+
+            except Exception as e:
+                pass
+                # print(e)
+
+        return best_model
