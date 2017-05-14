@@ -81,21 +81,22 @@ class SelectorBIC(ModelSelector):
                 model = self.base_model(n)
                 logL = model.score(self.X, self.lengths)
 
+                numFeatures = model.n_features
+                initParams = n
+                tranisitionParams = n*(n-1)
+                emissionParams = n*numFeatures*2
+            
+                p = initParams +  tranisitionParams + emissionParams
+
+                bic_score = (-2 * logL + p * math.log(n))
+
+                if bic_score < best_score:
+                    best_score = bic_score
+                    best_model = model
+
             except Exception as e:
                 pass
                 # print(e)
-
-            numFeatures = model.n_features
-            initParams = n
-            tranisitionParams = n*(n-1)
-            emissionParams = n*numFeatures*2
-            
-            p = initParams +  tranisitionParams + emissionParams
-
-            bic_score = (-2 * logL + p * math.log(n))
-            if bic_score < best_score:
-                best_score = bic_score
-                best_model = model
 
         return best_model
 
@@ -130,15 +131,15 @@ class SelectorDIC(ModelSelector):
                     word_logL = model.score(X, lengths)
                     sum_other_words_logL = sum_other_words_logL + word_logL
 
+                    dic_score =  this_word_logL - (1/(len(other_words))*sum_other_words_logL)
+
+                    if dic_score > best_score:
+                        best_score = dic_score
+                        best_model = model
+
             except Exception as e:
                     pass
-                    # print(e)
-
-            dic_score =  this_word_logL - (1/(len(other_words))*sum_other_words_logL)
-
-            if dic_score > best_score:
-                best_score = dic_score
-                best_model = model
+                    # print(e)                
 
         return best_model
 
